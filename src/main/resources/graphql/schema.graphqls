@@ -1,0 +1,44 @@
+type User{
+    id: String
+    password: String
+    name: String
+    nickname: String
+    email: String
+    age: Int
+}
+
+type UserInfo{
+    id: String
+    password: String
+    name: String
+    nickname: String
+    email: String
+    age: Int
+}
+
+input UserJoin{
+    id: String
+    password: String
+    name: String
+    nickname: String
+    email: String
+    age: Int
+}
+
+input UserModify{
+    password: String
+    name: String
+    nickname: String
+    email: String
+    age: Int
+}
+
+type Query{
+    getUser(id: String): UserInfo
+}
+
+type Mutation{
+    joinUser(userJoin: UserJoin): User
+    modifyUser(id: String, userModify: UserModify): User
+    removeUser(id: String): User
+}
