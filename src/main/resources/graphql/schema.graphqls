@@ -7,25 +7,8 @@ type User{
     age: Int
 }
 
-type UserInfo{
+input UserInput{
     id: String
-    password: String
-    name: String
-    nickname: String
-    email: String
-    age: Int
-}
-
-input UserJoin{
-    id: String
-    password: String
-    name: String
-    nickname: String
-    email: String
-    age: Int
-}
-
-input UserModify{
     password: String
     name: String
     nickname: String
@@ -34,11 +17,11 @@ input UserModify{
 }
 
 type Query{
-    getUser(id: String): UserInfo
+    getUser(id: String): User
 }
 
 type Mutation{
-    joinUser(userJoin: UserJoin): User
-    modifyUser(id: String, userModify: UserModify): User
+    joinUser(userInput: UserInput): User
+    modifyUser(id: String, userInput: UserInput): User
     removeUser(id: String): User
 }
