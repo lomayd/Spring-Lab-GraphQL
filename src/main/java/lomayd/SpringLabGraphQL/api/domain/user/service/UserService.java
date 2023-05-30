@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import lomayd.SpringLabGraphQL.api.domain.user.User;
 import lomayd.SpringLabGraphQL.api.domain.user.dto.UserRequestDto;
-import lomayd.SpringLabGraphQL.api.domain.user.dto.UserResponseDto;
 import lomayd.SpringLabGraphQL.api.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +13,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public void joinUser(UserRequestDto.UserJoin userJoin){
+    public User joinUser(UserRequestDto.UserJoin userJoin){
         User user = User.builder()
                 .id(userJoin.getId())
                 .password(userJoin.getPassword())
@@ -25,15 +24,17 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
+        
+        return user;
     }
 
-    public UserResponseDto.UserInfo getUser(String id) {
+    public User getUser(String id) {
         User user = userRepository.findById(id).get();
 
-        return UserResponseDto.UserInfo.of(user);
+        return user;
     }
 
-    public void modifyUser(String id, UserRequestDto.UserModify userModify) {
+    public User modifyUser(String id, UserRequestDto.UserModify userModify) {
         User user = userRepository.findById(id).get();
 
         user.setPassword(userModify.getPassword());
@@ -43,6 +44,8 @@ public class UserService {
         user.setAge(userModify.getAge());
 
         userRepository.save(user);
+        
+        return user;
     }
     public void removeUser(String id) {
         userRepository.deleteById(id);
